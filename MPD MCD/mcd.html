@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCD Overlook Hotel</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        h1 {
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        
+        .canvas-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 20px;
+            width: 95%;
+            max-width: 1400px;
+            overflow: auto;
+        }
+        
+        svg {
+            width: 100%;
+            height: auto;
+            min-height: 800px;
+        }
+        
+        .entity {
+            fill: #e8f4fd;
+            stroke: #2196F3;
+            stroke-width: 2;
+            filter: drop-shadow(3px 3px 5px rgba(0,0,0,0.2));
+        }
+        
+        .entity-title {
+            fill: #2196F3;
+            font-weight: bold;
+            font-size: 16px;
+            text-anchor: middle;
+        }
+        
+        .entity-attribute {
+            font-size: 14px;
+            text-anchor: middle;
+        }
+        
+        .relationship {
+            fill: #fff3e0;
+            stroke: #ff9800;
+            stroke-width: 2;
+            filter: drop-shadow(3px 3px 5px rgba(0,0,0,0.2));
+        }
+        
+        .relationship-text {
+            fill: #ff6f00;
+            font-weight: bold;
+            font-size: 15px;
+            text-anchor: middle;
+        }
+        
+        .line {
+            stroke: #666;
+            stroke-width: 2;
+            fill: none;
+        }
+        
+        .cardinality {
+            font-size: 14px;
+            font-weight: bold;
+            fill: #333;
+        }
+        
+        .client { fill: #e3f2fd; stroke: #1976d2; }
+        .chambre { fill: #fce4ec; stroke: #c2185b; }
+        .employe { fill: #fff8e1; stroke: #f57c00; }
+        .gestionnaire { fill: #f3e5f5; stroke: #7b1fa2; }
+        .feedback { fill: #e8f5e9; stroke: #388e3c; }
+        .fidelite { fill: #fff3e0; stroke: #f57c00; }
+        .evenement { fill: #e0f2f1; stroke: #00796b; }
+        .installation { fill: #fbe9e7; stroke: #d84315; }
+    </style>
+</head>
+<body>
+    <h1>Modèle Conceptuel de Données - Overlook Hotel</h1>
+    <div class="canvas-container">
+        <svg viewBox="0 0 1400 900">
+            <!-- Entités -->
+            <!-- Client -->
+            <rect class="entity client" x="50" y="50" width="200" height="150" rx="10"/>
+            <text class="entity-title" x="150" y="80">CLIENT</text>
+            <line x1="50" y1="95" x2="250" y2="95" stroke="#1976d2"/>
+            <text class="entity-attribute" x="150" y="120">email</text>
+            <text class="entity-attribute" x="150" y="140">mot_de_passe</text>
+            <text class="entity-attribute" x="150" y="160">nom</text>
+            <text class="entity-attribute" x="150" y="180">prenom</text>
+            
+            <!-- Chambre -->
+            <rect class="entity chambre" x="550" y="50" width="200" height="150" rx="10"/>
+            <text class="entity-title" x="650" y="80">CHAMBRE</text>
+            <line x1="550" y1="95" x2="750" y2="95" stroke="#c2185b"/>
+            <text class="entity-attribute" x="650" y="120">numero</text>
+            <text class="entity-attribute" x="650" y="140">type</text>
+            <text class="entity-attribute" x="650" y="160">prix</text>
+            <text class="entity-attribute" x="650" y="180">etage</text>
+            
+            <!-- Employe -->
+            <rect class="entity employe" x="50" y="400" width="200" height="150" rx="10"/>
+            <text class="entity-title" x="150" y="430">EMPLOYE</text>
+            <line x1="50" y1="445" x2="250" y2="445" stroke="#f57c00"/>
+            <text class="entity-attribute" x="150" y="470">nom</text>
+            <text class="entity-attribute" x="150" y="490">prenom</text>
+            <text class="entity-attribute" x="150" y="510">poste</text>
+            <text class="entity-attribute" x="150" y="530">salaire</text>
+            
+            <!-- Gestionnaire -->
+            <rect class="entity gestionnaire" x="50" y="650" width="200" height="130" rx="10"/>
+            <text class="entity-title" x="150" y="680">GESTIONNAIRE</text>
+            <line x1="50" y1="695" x2="250" y2="695" stroke="#7b1fa2"/>
+            <text class="entity-attribute" x="150" y="720">email</text>
+            <text class="entity-attribute" x="150" y="740">mot_de_passe</text>
+            <text class="entity-attribute" x="150" y="760">niveau_acces</text>
+            
+            <!-- Feedback -->
+            <rect class="entity feedback" x="1050" y="50" width="200" height="150" rx="10"/>
+            <text class="entity-title" x="1150" y="80">FEEDBACK</text>
+            <line x1="1050" y1="95" x2="1250" y2="95" stroke="#388e3c"/>
+            <text class="entity-attribute" x="1150" y="120">note</text>
+            <text class="entity-attribute" x="1150" y="140">commentaire</text>
+            <text class="entity-attribute" x="1150" y="160">date</text>
+            <text class="entity-attribute" x="1150" y="180">reponse</text>
+            
+            <!-- Programme Fidelite -->
+            <rect class="entity fidelite" x="1050" y="300" width="200" height="130" rx="10"/>
+            <text class="entity-title" x="1150" y="330">PROGRAMME_FIDELITE</text>
+            <line x1="1050" y1="345" x2="1250" y2="345" stroke="#f57c00"/>
+            <text class="entity-attribute" x="1150" y="370">points</text>
+            <text class="entity-attribute" x="1150" y="390">niveau</text>
+            <text class="entity-attribute" x="1150" y="410">date_adhesion</text>
+            
+            <!-- Evenement -->
+            <rect class="entity evenement" x="550" y="400" width="200" height="150" rx="10"/>
+            <text class="entity-title" x="650" y="430">EVENEMENT</text>
+            <line x1="550" y1="445" x2="750" y2="445" stroke="#00796b"/>
+            <text class="entity-attribute" x="650" y="470">nom</text>
+            <text class="entity-attribute" x="650" y="490">date_debut</text>
+            <text class="entity-attribute" x="650" y="510">date_fin</text>
+            <text class="entity-attribute" x="650" y="530">description</text>
+            
+            <!-- Installation -->
+            <rect class="entity installation" x="550" y="650" width="200" height="130" rx="10"/>
+            <text class="entity-title" x="650" y="680">INSTALLATION</text>
+            <line x1="550" y1="695" x2="750" y2="695" stroke="#d84315"/>
+            <text class="entity-attribute" x="650" y="720">nom</text>
+            <text class="entity-attribute" x="650" y="740">type</text>
+            <text class="entity-attribute" x="650" y="760">disponibilite</text>
+            
+            <!-- Relations -->
+            <!-- Réserver -->
+            <ellipse class="relationship" cx="400" cy="125" rx="80" ry="40"/>
+            <text class="relationship-text" x="400" y="130">Réserver</text>
+            <line class="line" x1="250" y1="125" x2="320" y2="125"/>
+            <line class="line" x1="480" y1="125" x2="550" y2="125"/>
+            <text class="cardinality" x="270" y="115">0,N</text>
+            <text class="cardinality" x="520" y="115">0,N</text>
+            <text class="entity-attribute" x="400" y="150" font-size="12">date_debut</text>
+            <text class="entity-attribute" x="400" y="165" font-size="12">date_fin</text>
+            <text class="entity-attribute" x="400" y="180" font-size="12">statut</text>
+            
+            <!-- Donner (Feedback) -->
+            <ellipse class="relationship" cx="900" cy="125" rx="70" ry="35"/>
+            <text class="relationship-text" x="900" y="130">Donner</text>
+            <line class="line" x1="750" y1="125" x2="830" y2="125"/>
+            <line class="line" x1="970" y1="125" x2="1050" y2="125"/>
+            <text class="cardinality" x="760" y="115">1,1</text>
+            <text class="cardinality" x="1020" y="115">0,N</text>
+            
+            <!-- Laisser (Client-Feedback) -->
+            <line class="line" x1="250" y1="100" x2="900" y2="100"/>
+            <line class="line" x1="900" y1="100" x2="1050" y2="100"/>
+            <text class="cardinality" x="260" y="90">1,N</text>
+            <text class="cardinality" x="1020" y="90">1,1</text>
+            
+            <!-- Adherer (Client-Fidelite) -->
+            <ellipse class="relationship" cx="650" cy="300" rx="70" ry="35"/>
+            <text class="relationship-text" x="650" y="305">Adhérer</text>
+            <line class="line" x1="250" y1="200" x2="650" y2="300"/>
+            <line class="line" x1="720" y1="300" x2="1050" y2="300"/>
+            <text class="cardinality" x="260" y="210">0,1</text>
+            <text class="cardinality" x="1020" y="290">1,1</text>
+            
+            <!-- Gérer (Gestionnaire-Chambre) -->
+            <ellipse class="relationship" cx="400" cy="715" rx="70" ry="35"/>
+            <text class="relationship-text" x="400" y="720">Gérer</text>
+            <line class="line" x1="250" y1="715" x2="330" y2="715"/>
+            <line class="line" x1="470" y1="715" x2="650" y2="650"/>
+            <text class="cardinality" x="260" y="705">1,N</text>
+            <text class="cardinality" x="620" y="640">0,N</text>
+            
+            <!-- Superviser (Gestionnaire-Employe) -->
+            <ellipse class="relationship" cx="150" cy="575" rx="80" ry="35"/>
+            <text class="relationship-text" x="150" y="580">Superviser</text>
+            <line class="line" x1="150" y1="550" x2="150" y2="610"/>
+            <line class="line" x1="150" y1="610" x2="150" y2="650"/>
+            <text class="cardinality" x="160" y="560">0,N</text>
+            <text class="cardinality" x="160" y="640">1,1</text>
+            
+            <!-- Participer (Client-Evenement) -->
+            <ellipse class="relationship" cx="400" cy="300" rx="75" ry="35"/>
+            <text class="relationship-text" x="400" y="305">Participer</text>
+            <line class="line" x1="250" y1="180" x2="400" y2="300"/>
+            <line class="line" x1="475" y1="300" x2="650" y2="400"/>
+            <text class="cardinality" x="260" y="190">0,N</text>
+            <text class="cardinality" x="620" y="390">0,N</text>
+            
+            <!-- Utiliser (Client-Installation) -->
+            <ellipse class="relationship" cx="400" cy="475" rx="70" ry="35"/>
+            <text class="relationship-text" x="400" y="480">Utiliser</text>
+            <line class="line" x1="250" y1="200" x2="400" y2="475"/>
+            <line class="line" x1="470" y1="475" x2="550" y2="475"/>
+            <line class="line" x1="550" y1="475" x2="650" y2="650"/>
+            <text class="cardinality" x="260" y="210">0,N</text>
+            <text class="cardinality" x="620" y="640">0,N</text>
+            
+            <!-- Organiser (Employe-Evenement) -->
+            <ellipse class="relationship" cx="400" cy="475" rx="75" ry="35"/>
+            <text class="relationship-text" x="400" y="480">Organiser</text>
+            <line class="line" x1="250" y1="475" x2="325" y2="475"/>
+            <line class="line" x1="475" y1="475" x2="550" y2="475"/>
+            <text class="cardinality" x="260" y="465">1,N</text>
+            <text class="cardinality" x="520" y="465">0,1</text>
+        </svg>
+    </div>
+</body>
+</html>

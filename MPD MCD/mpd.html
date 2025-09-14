@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physical Data Model - Overlook Hotel</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 30px;
+            width: 95%;
+            max-width: 1400px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+        }
+        .table {
+            background: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        .table:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+        }
+        .table-header {
+            font-weight: bold;
+            font-size: 18px;
+            padding: 15px;
+            text-align: center;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+        .table-body {
+            padding: 15px;
+            background: white;
+        }
+        .column {
+            padding: 5px 0;
+            font-size: 14px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .column:last-child {
+            border-bottom: none;
+        }
+        .pk {
+            font-weight: bold;
+            color: #d32f2f;
+        }
+        .fk {
+            font-weight: bold;
+            color: #1976d2;
+        }
+        .pk::before {
+            content: "🔑 PK ";
+            color: #d32f2f;
+        }
+        .fk::before {
+            content: "🔗 FK ";
+            color: #1976d2;
+        }
+        /* Colors by table type */
+        .client-header { background: linear-gradient(135deg, #1976d2, #42a5f5); }
+        .chambre-header { background: linear-gradient(135deg, #c2185b, #e91e63); }
+        .employe-header { background: linear-gradient(135deg, #f57c00, #ff9800); }
+        .gestionnaire-header { background: linear-gradient(135deg, #7b1fa2, #9c27b0); }
+        .feedback-header { background: linear-gradient(135deg, #388e3c, #4caf50); }
+        .fidelite-header { background: linear-gradient(135deg, #f57c00, #ffa726); }
+        .evenement-header { background: linear-gradient(135deg, #00796b, #009688); }
+        .installation-header { background: linear-gradient(135deg, #d84315, #ff5722); }
+        .association-header { background: linear-gradient(135deg, #455a64, #607d8b); }
+    </style>
+</head>
+<body>
+    <h1>Physical Data Model - Overlook Hotel</h1>
+    <div class="container">
+        <!-- Table Customer -->
+        <div class="table">
+            <div class="table-header client-header">Customer</div>
+            <div class="table-body">
+                <div class="column pk">id BIGINT</div>
+                <div class="column">email TEXT</div>
+                <div class="column">password TEXT</div>
+                <div class="column">last_name TEXT</div>
+                <div class="column">first_name TEXT</div>
+            </div>
+        </div>
+        
+        <!-- Table Room -->
+        <div class="table">
+            <div class="table-header chambre-header">Room</div>
+            <div class="table-body">
+                <div class="column pk">id BIGINT</div>
+                <div class="column">room_number INT</div>
+                <div class="column">room_type TEXT</div>
+                <div class="column">price NUMERIC(10,2)</div>
+                <div class="column">floor INT</div>
+            </div>
+        </div>
+        
+        <!-- Table Booking -->
+        <div class="table">
+            <div class="table-header association-header">Booking</div>
+            <div class="table-body">
+                <div class="column pk">id BIGINT</div>
+                <div class="column fk">customer_id BIGINT</div>
+                <div class="column fk">room_id BIGINT</div>
+                <div class="column">start_date DATE</div>
+                <div class="column">end_date DATE</div>
+                <div class="column">status TEXT</div>
+            </div>
+        </div>
+        
+        <!-- Table Employee -->
+        <div class="table">
+            <div class="table-header employe-header">Employee</div>
+            <div class="table-body">
+                <div class="column pk">id BIGINT</div>
+                <div class="column fk">manager_id BIGINT</div>
+                <div class="column">last_name TEXT</div>
+                <div class="column">first_name TEXT</div>
+                <div class="column">position TEXT</div>
+                <div class="column">salary NUMERIC(10,2)</div>
+            </div>
+        </div>
+        
+        <!-- Table Manager -->
+        <div class="table">
+            <div class="table-header gestionnaire-header">Manager</div>
+            <div class="table-body">
+                <div class="column pk">id BIGINT</div>
+                <div class="column">email TEXT</div>
+                <div class="column">password TEXT</div>
+                <div class="column">access_level SMALLINT</div>
+            </div>
+        </div>
+        
+        <!-- Table Feedback -->
+        <div class="table">
+            <div class="table-header feedback-header">Feedback</div>
+            <div class="table-body">
+                <div class="column pk">id BIGINT</div>
+                <div class="column">rating SMALLINT</div>
+                <div class="column">comment_text TEXT</div>
+                <div class="column">created_at DATE</div>
+                <div class="column">response TEXT</div>
+                <div class="column fk">customer_id BIGINT</div>
+                <div class="column fk">room_id BIGINT</div>
+            </div>
+        </div>
+        
+        <!-- Table Loyalty_Program -->
+        <div class="table">
+            <div class="table-header fidelite-header">Loyalty_Program</div>
+            <div class="table-body">
+                <div class="column pk">id_loyalty_program INT</div>
+                <div class="column fk">id_customer INT</div>
+                <div class="column">points INT</div>
+                <div class="column">level VARCHAR(30)</div>
+                <div class="column">join_date DATE</div>
+                <div class="column">points_used INT</div>
+                <div class="column">status VARCHAR(20)</div>
+            </div>
+        </div>
+        
+        <!-- Table Event -->
+        <div class="table">
+            <div class="table-header evenement-header">Event</div>
+            <div class="table-body">
+                <div class="column pk">id_event INT</div>
+                <div class="column fk">id_employee_organizer INT</div>
+                <div class="column">name VARCHAR(100)</div>
+                <div class="column">description TEXT</div>
+                <div class="column">start_date DATETIME</div>
+                <div class="column">end_date DATETIME</div>
+                <div class="column">location VARCHAR(100)</div>
+                <div class="column">max_capacity INT</div>
+            </div>
+        </div>
+        
+        <!-- Table Facility -->
+        <div class="table">
+            <div class="table-header installation-header">Facility</div>
+            <div class="table-body">
+                <div class="column pk">id_facility INT</div>
+                <div class="column">name VARCHAR(100)</div>
+                <div class="column">type VARCHAR(50)</div>
+                <div class="column">description TEXT</div>
+                <div class="column">availability BOOLEAN</div>
+                <div class="column">capacity INT</div>
+                <div class="column">opening_time TIME</div>
+                <div class="column">closing_time TIME</div>
+            </div>
+        </div>
+        
+        <!-- Table Event_Participation -->
+        <div class="table">
+            <div class="table-header association-header">Event_Participation</div>
+            <div class="table-body">
+                <div class="column pk fk">id_customer INT</div>
+                <div class="column pk fk">id_event INT</div>
+                <div class="column">registration_date DATETIME</div>
+                <div class="column">participation_status VARCHAR(30)</div>
+                <div class="column">num_people INT</div>
+            </div>
+        </div>
+        
+        <!-- Table Facility_Usage -->
+        <div class="table">
+            <div class="table-header association-header">Facility_Usage</div>
+            <div class="table-body">
+                <div class="column pk">id_usage INT</div>
+                <div class="column fk">id_customer INT</div>
+                <div class="column fk">id_facility INT</div>
+                <div class="column">usage_date DATE</div>
+                <div class="column">start_time TIME</div>
+                <div class="column">end_time TIME</div>
+                <div class="column">fee DECIMAL(10,2)</div>
+            </div>
+        </div>
+        
+        <!-- Table Room_Management -->
+        <div class="table">
+            <div class="table-header association-header">Room_Management</div>
+            <div class="table-body">
+                <div class="column pk fk">id_manager INT</div>
+                <div class="column pk fk">id_room INT</div>
+                <div class="column">assignment_date DATE</div>
+                <div class="column">management_type VARCHAR(50)</div>
+            </div>
+        </div>
+        
+        <!-- Table Employee_Schedule -->
+        <div class="table">
+            <div class="table-header association-header">Employee_Schedule</div>
+            <div class="table-body">
+                <div class="column pk">id_schedule INT</div>
+                <div class="column fk">id_employee INT</div>
+                <div class="column">day_of_week VARCHAR(20)</div>
+                <div class="column">start_time TIME</div>
+                <div class="column">end_time TIME</div>
+                <div class="column">shift_type VARCHAR(30)</div>
+            </div>
+        </div>
+        
+        <!-- Table Notification -->
+        <div class="table">
+            <div class="table-header association-header">Notification</div>
+            <div class="table-body">
+                <div class="column pk">id_notification INT</div>
+                <div class="column fk">id_customer INT</div>
+                <div class="column">type VARCHAR(50)</div>
+                <div class="column">message TEXT</div>
+                <div class="column">sent_date DATETIME</div>
+                <div class="column">read BOOLEAN</div>
+                <div class="column">priority VARCHAR(20)</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

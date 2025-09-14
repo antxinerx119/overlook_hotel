@@ -1,4 +1,4 @@
-package com.example.Overlook_Hotel;
+package com.example.overlook_hotel;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

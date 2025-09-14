@@ -1,4 +1,4 @@
-package com.example.Overlook_Hotel;
+package com.example.overlook_hotel;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
